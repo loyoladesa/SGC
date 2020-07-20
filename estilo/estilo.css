@@ -1,0 +1,68 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 10-Nov-2018, 20:45:12
+    Author     : Sidney Loyola de Sá
+*/
+body.center-form {
+            min-height: 100vh;
+        }
+
+        div.center-form {
+            position: relative;
+            min-height: 100vh;
+        }
+
+        div.center-form > form {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+        }
+        div.center-form > h3 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+        }
+         div.center-form > table {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+        }
+         div.center-form > p {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+        }
+        
+        label.hora {
+
+            display: inline-block;
+            width: 90px;
+        }
+        input.hora {
+
+            display: inline-block;
+            width: 180px;
+        }
+        
+        .table-responsive{
+  width: 100% !important;
+}
+
+.table {
+    border: 1px solid red;
+    width: 50% !important; /*Importante manter o !important rs */
+    margin: auto;
+}
+
+.table-status {
+    margin-top: 20px;
+    margin-bottom: 20px !important;
+}

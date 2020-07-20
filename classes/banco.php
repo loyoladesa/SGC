@@ -39,7 +39,8 @@ class Banco{
     
     
     function login($usuario,$senha){
-         $this->dbc = mysqli_connect($this->host, $this->user, $this->password, $this->name);
+        
+        $this->dbc = mysqli_connect($this->host, $this->user, $this->password, $this->name);
         
         $query = "SELECT id, usuario,perfil FROM Usuarios WHERE Usuario = '$usuario' AND Senha = SHA('$senha');";
         $data = mysqli_query($this->dbc, $query);

@@ -1,33 +1,36 @@
 <?php
-require_once('connectvars.php');
-require_once ('classes/banco.php');
+//require_once('connectvars.php');
+//require_once ('classes/banco.php');
 
 // Start the session
 session_start();
 
 // Clear the error message
 $error_msg = "";
+$controller = new LoginController();
 
 // If the user isn't logged in, try to log them in
 if (!isset($_SESSION['id'])) {
     if (isset($_POST['submit'])) {
         // Connect to the database
-        $banco = new Banco(DB_HOST,DB_USER, DB_PASSWORD, DB_NAME);
-        $banco->conectar();
+//        $banco = new Banco(DB_HOST,DB_USER, DB_PASSWORD, DB_NAME);
+//        $banco->conectar();
         
 
         // Grab the user-entered log-in data
-        $user_username = $banco->preparar($_POST['usuario']);
-              
-        $user_password = $banco->preparar($_POST['senha']);
+        $user_username = $_POST['usuario'];       
+        $user_password = $_POST['senha'];
                 
+        
+        
 
         if (!empty($user_username) && !empty($user_password)) {
             // Look up the username and password in the database
             
-            if ($banco->login($user_username, $user_password)) {
+            $row = $controller->login($user_username, $user_password);
+            
+            if ($row <> null) {
                 // The log-in is OK so set the user ID and username session vars (and cookies), and redirect to the home page
-                $row = $banco->obterUsuario($user_username, $user_password);
                 $_SESSION['id'] = $row['id'];
                 $_SESSION['usuario'] = $row['usuario'];
                 $_SESSION['perfil'] = $row['perfil'];

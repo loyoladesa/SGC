@@ -13,7 +13,7 @@
  */
 
 require_once('connectvars.php');
-require_once ('classes/banco.php');
+require_once ('../classes/banco.php');
 
 
 class LoginController {

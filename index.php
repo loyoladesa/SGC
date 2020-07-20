@@ -1,6 +1,7 @@
 <?php
 //require_once('connectvars.php');
 //require_once ('classes/banco.php');
+require_once 'controller/LoginController.php';
 
 // Start the session
 session_start();

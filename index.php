@@ -1,6 +1,6 @@
 <?php
-//require_once('connectvars.php');
-//require_once ('classes/banco.php');
+
+ define('ROOT_PATH', dirname(__FILE__));
 require_once 'controller/LoginController.php';
 
 // Start the session
@@ -13,23 +13,15 @@ $controller = new LoginController();
 // If the user isn't logged in, try to log them in
 if (!isset($_SESSION['id'])) {
     if (isset($_POST['submit'])) {
-        // Connect to the database
-//        $banco = new Banco(DB_HOST,DB_USER, DB_PASSWORD, DB_NAME);
-//        $banco->conectar();
-        
-
+         
         // Grab the user-entered log-in data
         $user_username = $_POST['usuario'];       
-        $user_password = $_POST['senha'];
-                
-        
+        $user_password = $_POST['senha'];                    
         
 
         if (!empty($user_username) && !empty($user_password)) {
-            // Look up the username and password in the database
-            
-            $row = $controller->login($user_username, $user_password);
-            
+            // Look up the username and password in the database            
+            $row = $controller->login($user_username, $user_password);            
             if ($row <> null) {
                 // The log-in is OK so set the user ID and username session vars (and cookies), and redirect to the home page
                 $_SESSION['id'] = $row['id'];
@@ -38,23 +30,23 @@ if (!isset($_SESSION['id'])) {
                 setcookie('id', $row['id'], time() + (60 * 60 * 24 * 30));    // expires in 30 days
                 setcookie('usuario', $row['usuario'], time() + (60 * 60 * 24 * 30));  // expires in 30 days
                 setcookie('perfil', $row['perfil'], time() + (60 * 60 * 24 * 30));  // expires in 30 days
-                $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/contratos.php';
+                $home_url = 'view/dashboard.php';
                 header('Location: ' . $home_url);
             } else {
                 // The username/password are incorrect so set an error message
                 //$error_msg = 'Sorry, you must enter a valid username and password to log in.';
-                $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/login_negado.php';
+                $home_url = 'view/login_negado.php';
                 header('Location: ' . $home_url);
             }
         } else {
             // The username/password weren't entered so set an error message
             //$error_msg = 'Sorry, you must enter your username and password to log in.';
-            $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/login_negado.php';
+            $home_url = 'view/login_negado.php';
             header('Location: ' . $home_url);
         }
     }
 } else {
-    $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/contratos.php';
+    $home_url = 'view/dashboard.php';
     header('Location: ' . $home_url);
 }
 ?>
@@ -109,6 +101,4 @@ and open the template in the editor.
     
         </div>
     </body>
-
-
 </html>

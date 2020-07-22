@@ -29,6 +29,9 @@ class LoginController {
         $this->state = 'login';
     }
     
+   
+
+
     function login($user,$pwd) {
         $this->model->conectar();
         $user_username = $this->model->preparar($user);
@@ -85,6 +88,15 @@ class LoginController {
     function set_model($model) {
         $this->model = $model;
     }
+    
+    function get_state() {
+        return $this->state;
+    }
+
+    function set_state($state) {
+        $this->state = $state;
+    }
+
 
 
     

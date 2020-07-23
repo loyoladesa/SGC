@@ -12,48 +12,7 @@
         <div class="center-form">
 
 
-            <?php
-            require_once('../connectvars.php');
-            require_once('../classes/banco.php');
-            //require_once('../classes/Endereco.php');
-            //require_once('../classes/Fornecedor.php');
-
-            // Connect to the database
-            $banco = new Banco(DB_HOST,DB_USER, DB_PASSWORD, DB_NAME);
-            $banco->conectar();
-            $endereco = new Endereco();
-            $fornecedor = new Fornecedor();
-
-            if (isset($_POST['submit'])) {
-                // Grab the profile data from the POST
-                $fornecedor->set_empresa($banco->preparar($_POST['empresa']));
-                $fornecedor->set_CNPJ($banco->preparar($_POST['cnpj']));
-                $fornecedor->set_email($banco->preparar($_POST['email']));
-                $fornecedor->set_telefone($banco->preparar($_POST['telefone']));
-                $fornecedor->set_contato($banco->preparar($_POST['contato']));
-                $fornecedor->set_assinatura($banco->preparar($_POST['assinatura']));
-                
-                $endereco->set_logradouro($banco->preparar($_POST['logradouro']));
-                $endereco->set_numero($banco->preparar($_POST['numero']));
-                $endereco->set_complemento($banco->preparar($_POST['complemento']));
-                $endereco->set_bairro($banco->preparar($_POST['bairro']));
-                $endereco->set_cidade($banco->preparar($_POST['cidade']));
-                $endereco->set_estado($banco->preparar($_POST['estado']));
-                $endereco->set_cep($banco->preparar($_POST['cep']));
-                $fornecedor->set_endereco($endereco);
-                
-                $banco->inserir_fornecedor($fornecedor);
-                
-                $home_url = 'http://loyoladesa.com.br/contratos/contratos.php';
-                header('Location: ' . $home_url);
-                
-            }
-
-            mysqli_close($banco->get_dbc());
-            ?>
-
-
-            <form method="post" action="http://loyoladesa.com.br/contratos/fornecedores/cadastrar_fornecedores.php">
+            <form method="post" action="http://loyoladesa.com.br/contratos/controller/FornecedoresController.php">
                 <fieldset>
                     <legend>Sistema de Gerenciamento de Contratos - Novo Fornecedor</legend>
                     
@@ -172,7 +131,7 @@
                         </tr>
                     </table>                    
                 </fieldset>
-                <a href="../contratos.php"><input class="hora" type="button" value="Voltar" /></a>  
+                <a href="http://loyoladesa.com.br/contratos/index.php"><input class="hora" type="button" value="Voltar" /></a>  
                 <input type="submit" value="Cadastrar" name="submit" />
             </form>
         </div>

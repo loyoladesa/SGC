@@ -12,7 +12,7 @@ and open the template in the editor.
     <body>
         <?php
         // put your code here
-        echo ('Não foi possível realizar o cadastro' . '<a href="http://loyoladesa.com.br/contratos/fornecedores/cadastrar_fornecedores.php">continua</a>');
+        echo ('Não foi possível realizar o cadastro ' . '<a href="http://loyoladesa.com.br/contratos/view/fornecedores/cadastrar_fornecedores.php">continua</a>');
         ?>
     </body>
 </html>

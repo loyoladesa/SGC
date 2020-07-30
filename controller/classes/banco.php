@@ -84,11 +84,13 @@ class Banco{
             $estado = mysqli_real_escape_string($this->dbc, trim($endereco->get_estado()));
             $cep = mysqli_real_escape_string($this->dbc, trim($endereco->get_cep()));
             
-            $query_1 = "INSERT INTO Endereço (logradouro,numero,complemento,bairro,cidade,estado,cep) "
+            $query_1 = "INSERT INTO Endereco (logradouro,numero,complemento,bairro,cidade,estado,cep) "
                     . "VALUES ('$logradouro', '$numero','$complemento','$bairro','$cidade','$estado','$cep');";
-            mysqli_query($this->dbc, $query_1);
+            $result = mysqli_query($this->dbc, $query_1);
             
             mysqli_close($this->dbc);
+            
+            return $result;
         
     }
     
@@ -112,13 +114,11 @@ class Banco{
      function inserir_fornecedor(Fornecedor $fornecedor){
           
            $endereco = $fornecedor->get_endereco();
+           $id_end = 0;
            
-           $this->inserirEndereco($endereco);
-           
-           $id_end = $this->obterIDEndereco($endereco->get_logradouro(), $endereco->get_numero());        
-           
-                      
-            
+         
+               $id_end = $this->obterIDEndereco($endereco->get_logradouro(), $endereco->get_numero()); 
+          
             $this->dbc = mysqli_connect($this->host, $this->user, $this->password, $this->name);
             
             $cnpj = $fornecedor->get_CNPJ();
@@ -130,9 +130,11 @@ class Banco{
             
             $query_3 = "INSERT INTO Fornecedor (Assinatura,CNPJ,Contato,email,Empresa,id_end,Telefone) "
                     . "VALUES ('$assinatura', '$cnpj','$contato','$email','$empresa','$id_end','$telefone');";
-            mysqli_query($this->dbc, $query_3);     
-            
+            $result = mysqli_query($this->dbc, $query_3);                 
             mysqli_close($this->dbc);
+            
+            return $result;
+           
             
     }
     

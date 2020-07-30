@@ -51,9 +51,10 @@ class FornecedoresController {
         $endereco->set_cidade($this->banco->preparar($_POST['cidade']));
         $endereco->set_estado($this->banco->preparar($_POST['estado']));
         $endereco->set_cep($this->banco->preparar($_POST['cep']));
+        
         $fornecedor->set_endereco($endereco);
-
-        $this->banco->inserir_fornecedor($fornecedor);        
+        $this->banco->inserirEndereco($endereco);
+        return $this->banco->inserir_fornecedor($fornecedor);        
     }    
     
 }
@@ -63,9 +64,14 @@ class FornecedoresController {
 
             if (isset($_POST['submit'])) {                
                 try{
-                    $fornController->cadastrarFornecedor();
-                    $home_url = 'http://loyoladesa.com.br/contratos/view/fornecedores/fornecedor_cadastrado.php';
-                    header('Location: ' . $home_url);   
+                    if($fornController->cadastrarFornecedor()){
+                        $home_url = 'http://loyoladesa.com.br/contratos/view/fornecedores/fornecedor_cadastrado.php';
+                         header('Location: ' . $home_url); 
+                    }else{
+                        $home_url = 'http://loyoladesa.com.br/contratos/view/fornecedores/cadastro_negado.php';
+                        header('Location: ' . $home_url); 
+                    }
+                      
                     
                 } catch (Exception $ex) {
                     $home_url = 'http://loyoladesa.com.br/contratos/view/fornecedores/cadastro_negado.php';

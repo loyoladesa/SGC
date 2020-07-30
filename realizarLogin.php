@@ -1,6 +1,12 @@
 <?php
 
-  define('ROOT_PATH', dirname(__FILE__));
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+define('ROOT_PATH', dirname(__FILE__));
 require_once 'controller/LoginController.php';
 
 // Start the session
@@ -8,9 +14,7 @@ session_start();
    $error_msg = "";
    
    $controller = new LoginController();
-   
-   // If the user isn't logged in, try to log them in
-        if (!isset($_SESSION['id'])) {
+
             if (isset($_POST['submit'])) {
 
                 // Grab the user-entered log-in data
@@ -26,31 +30,23 @@ session_start();
                             $_SESSION['id'] = $row['id'];
                             $_SESSION['usuario'] = $row['usuario'];
                             $_SESSION['perfil'] = $row['perfil'];
+                            $_SESSION['state'] = 'logged';
 
                             setcookie('id', $row['id'], time() + (60 * 60 * 24 * 30));    // expires in 30 days
                             setcookie('usuario', $row['usuario'], time() + (60 * 60 * 24 * 30));  // expires in 30 days
                             setcookie('perfil', $row['perfil'], time() + (60 * 60 * 24 * 30));  // expires in 30 days   
                             //setcookie('state', $controller->get_state(), time() + (60 * 60 * 24 * 30));  // expires in 30 days   
-                        } 
+                            header('Location: http://www.loyoladesa.com.br/contratos/index.php');
+                        }else{
+                            $_SESSION['state'] = 'denied';
+                            header('Location: http://www.loyoladesa.com.br/contratos/index.php');
+                        }
+                        
                     }catch(Exception $e){
                         echo'Ops! Algo inseperado aconteceu!';
                     }
                 }        
-            }   
-        }else{
-            $controller->set_state('logged');
-        } 
-
-
-   
-
-
-
-//header('Location: ' . $controller->isLogin());
-require_once $controller->get_view();
-
-
-
-?>
-
-
+            }else{
+                 
+                 header('Location: http://www.loyoladesa.com.br/contratos/index.php');
+            } 
